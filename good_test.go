@@ -10,7 +10,7 @@ import (
 
 type testGoodX1 struct{}
 type testGoodX2 struct{}
-type testGoodXDB struct{
+type testGoodXDB struct {
 	db *sql.DB
 }
 
@@ -23,7 +23,21 @@ func (x testGoodX2) hello() string {
 }
 
 func (x testGoodXDB) hello() string {
-	return "This is db"
+	q := "SELECT message FROM test_table"
+	rows, err := x.db.Query(q)
+	if err != nil {
+		log.Fatal("failed to query for db: ", err)
+	}
+	defer rows.Close()
+	if exist := rows.Next(); exist != true {
+		log.Fatal("nothing in db")
+	}
+	var message string
+	if err := rows.Scan(&message); err != nil {
+		log.Fatal("failed to get value from a row: ", err)
+	}
+
+	return message
 }
 
 func TestHelloFromGoodX(t *testing.T) {
@@ -48,7 +62,7 @@ func TestHelloFromGoodX(t *testing.T) {
 }
 
 func TestHelloFromDB(t *testing.T) {
-	db, err := sql.Open("sqlite3", "./example.sql")
+	db, err := sql.Open("sqlite3", "./example")
 	if err != nil {
 		log.Fatal("failed to connect db: ", err)
 	}
