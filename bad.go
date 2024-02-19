@@ -3,6 +3,6 @@ package main
 import "fmt"
 
 func helloFromBadX() string {
-	x := BadX{}
+	x := Ext{}
 	return fmt.Sprintf("%v world", x.hello())
 }
