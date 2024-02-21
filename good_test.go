@@ -31,7 +31,6 @@ func (x testGoodXDB) hello() string {
 	}
 	return message
 }
-
 func TestHelloFromGoodX(t *testing.T) {
 	var (
 		given IExt
@@ -54,11 +53,15 @@ func TestHelloFromGoodX(t *testing.T) {
 }
 
 func TestHelloFromDB(t *testing.T) {
-	db, err := sql.Open("sqlite3", "./example")
+	db, err := sql.Open("sqlite3", "file:temp?mode=memory")
 	if err != nil {
 		log.Fatal("failed to connect db: ", err)
 	}
 	defer db.Close()
+
+	// in-memory db init
+	db.Exec("CREATE TABLE test_table(id integer, message text)")
+	db.Exec("INSERT INTO test_table VALUES(1, \"This is db\")")
 
 	var (
 		given IExt
