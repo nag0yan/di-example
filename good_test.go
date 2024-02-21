@@ -23,20 +23,12 @@ func (x testGoodX2) hello() string {
 }
 
 func (x testGoodXDB) hello() string {
+	var message string
 	q := "SELECT message FROM test_table"
-	rows, err := x.db.Query(q)
-	if err != nil {
-		log.Fatal("failed to query for db: ", err)
-	}
-	defer rows.Close()
-	if exist := rows.Next(); exist != true {
+	row := x.db.QueryRow(q)
+	if err := row.Scan(&message); err != nil {
 		log.Fatal("nothing in db")
 	}
-	var message string
-	if err := rows.Scan(&message); err != nil {
-		log.Fatal("failed to get value from a row: ", err)
-	}
-
 	return message
 }
 
