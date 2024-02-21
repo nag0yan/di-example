@@ -1,3 +1,5 @@
 # go DI example
-To use sqlite, `export CGO_ENABLED=1` \
-and gcc install required.
+A practice of Onion Architecture
+
+https://medium.com/expedia-group-tech/onion-architecture-deed8a554423 \
+https://www.youtube.com/watch?v=80NeuPXs2J0
