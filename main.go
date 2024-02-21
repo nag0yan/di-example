@@ -9,6 +9,6 @@ func main() {
 	fmt.Println(helloFromBadX())
 
 	// good example
-	var x IGoodX = Ext{}
+	var x IExt = Ext{}
 	fmt.Println(helloFromGoodX(x))
 }

@@ -7,3 +7,7 @@ type Ext struct {
 func (x Ext) hello() string {
 	return "hello"
 }
+
+type IExt interface {
+	hello() string
+}

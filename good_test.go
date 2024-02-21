@@ -42,7 +42,7 @@ func (x testGoodXDB) hello() string {
 
 func TestHelloFromGoodX(t *testing.T) {
 	var (
-		given IGoodX
+		given IExt
 		got   string
 		want  string
 	)
@@ -69,7 +69,7 @@ func TestHelloFromDB(t *testing.T) {
 	defer db.Close()
 
 	var (
-		given IGoodX
+		given IExt
 		got   string
 		want  string
 	)
